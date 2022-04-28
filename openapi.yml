@@ -1,0 +1,221 @@
+openapi: '3.0.2'
+info:
+  title: MicroService Demo
+  version: '1.0'
+servers:
+  - url: http://localhost:8000
+
+# Paths -----------------------------------------------------------------------
+
+paths:
+  /test:
+    get:
+      description: 'simple connectivity test'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /user:
+    get:
+      tags:
+        - user
+      description: 'return a list of user objects'
+      operationId: listUser   
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      tags:
+        - user
+      description: 'Add a new user'
+      responses:
+        '201':
+          description: 'user created, returns userId'
+          content:
+            application/json:
+              schema:
+                type: string
+                format: uuid
+        '400':
+          description: object invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '409':
+          description: user already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        description: user to add
+        required: true
+
+  /user/{userId}:
+  # TODO: add PUT and DELETE
+    get:
+      tags:
+        - user
+      description: 'get a user'
+      operationId: getUser
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    put:
+      tags:
+        - user
+      description: 'update a user'
+      operationId: updateUser
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        description: user to add
+        required: true
+
+    delete:
+      tags:
+        - user
+      description: 'delete a user'
+      operationId: deleteUser
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+
+
+# TODO: define paths and components for appointments, notifications, and documents
+
+# Components ------------------------------------------------------------------
+
+components:
+  schemas:
+
+    User:
+      type: object
+      required:
+      - id
+      - firstName
+      - lastName
+      - dateOfBirth
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        firstName:
+          type: string
+          example: Samuel
+        lastName:
+          type: string
+          example: Adams
+        dateOfBirth:
+          type: string
+          format: date
+          example: 1986-08-29
+        address:
+          type: string
+          example: Ohio
+
+    ApiResponse:
+      type: object
+      description: response message including http status code
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
