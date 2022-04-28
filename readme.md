@@ -24,7 +24,7 @@ Procedure:
 
 7- the generator will generate only models,validations,structure,etc but not implementation code
 	- the implementation code has to be written manually in typescript, here it is src/impl
-	- in the implementation code we have to handle database management, here it is firestore from firebase
+	- in the implementation code we have to handle database management, here it is MYSQL
 
 8- once the implementation code is completed, the project is ready to test and deploy
 
