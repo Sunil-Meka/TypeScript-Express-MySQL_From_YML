@@ -5,8 +5,10 @@
   "license": "MIT",
   "scripts": {
     "generate": "openapi-generator-plus -c config.yml",
-    "start": "nodemon src/index.ts"
-  },
+	"build": "rimraf build && tsc",
+	"dev": "nodemon src/index.ts",
+	"start": "node build/src/index.js",
+	"debug": "nodemon --inspect src/index.js"  },
   "dependencies": {
     "@openapi-generator-plus/typescript-express-passport-server-generator": "^2.4.0",
     "@types/cors": "^2.8.12",
@@ -22,6 +24,8 @@
     "openapi-generator-plus": "^1.5.1",
     "passport": "^0.5.2",
     "swagger-ui-express": "^4.3.0",
-    "yamljs": "^0.3.0"
+    "yamljs": "^0.3.0",
+	"rimraf": "^3.0.2"
+
   }
 }
