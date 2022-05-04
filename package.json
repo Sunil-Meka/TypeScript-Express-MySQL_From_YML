@@ -5,10 +5,11 @@
   "license": "MIT",
   "scripts": {
     "generate": "openapi-generator-plus -c config.yml",
-	"build": "rimraf build && tsc",
-	"dev": "nodemon src/index.ts",
-	"start": "node build/src/index.js",
-	"debug": "nodemon --inspect src/index.js"  },
+    "build": "rimraf build && tsc",
+    "dev": "nodemon src/index.ts",
+    "start": "node build/src/index.js",
+    "debug": "nodemon --inspect src/index.js"
+  },
   "dependencies": {
     "@openapi-generator-plus/typescript-express-passport-server-generator": "^2.4.0",
     "@types/cors": "^2.8.12",
@@ -21,11 +22,13 @@
     "express": "^4.18.0",
     "firebase-admin": "^10.1.0",
     "mysql": "^2.18.1",
+    "mysql-client": "^0.3.0",
     "openapi-generator-plus": "^1.5.1",
     "passport": "^0.5.2",
+    "rimraf": "^3.0.2",
     "swagger-ui-express": "^4.3.0",
-    "yamljs": "^0.3.0",
-	"rimraf": "^3.0.2"
-
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.2",
+    "yamljs": "^0.3.0"
   }
 }

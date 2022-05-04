@@ -1,4 +1,3 @@
-import mysql from "mysql";
 import { resolve } from "path";
 import {
   DeleteUserResponse,
@@ -9,16 +8,8 @@ import {
   UserApi,
 } from "../../../dist/api/user/types";
 import { Api } from "../../../dist/models";
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "tiger",
-  database: "ogni",
-});
-con.connect(function (err) {
-  if (err) throw err;
-  console.log("Connected!");
-});
+import { con } from "../../mySQL/config";
+
 export class UserApiImpl implements UserApi {
   listUser(): Promise<ListUserResponse> {
     return new Promise<ListUserResponse>((resolve, reject) => {
